@@ -38,7 +38,7 @@ def show_results_table():
 def delete_recomendation():
     index_recomendation = 0
     index_recomendation = int(input("Wpisz indeks zalecenia do usunięcia: "))
-    if index_recomendation < 1 or index_recomendation > len(table)-1:
+    if index_recomendation < 1 or index_recomendation > len(table) -1:
         print("nie ma takiego zalecenia: ")
     else:
         table.pop(index_recomendation)
