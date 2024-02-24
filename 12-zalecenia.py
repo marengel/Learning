@@ -1,5 +1,6 @@
 user = -1
 table = []
+
 def calculate_fosfor():
     result_fosfor = int(input("Podaj wynik badania fosforu [g/m2]: "))
     fosfor = 60.0
@@ -17,6 +18,7 @@ def calculate_fosfor():
         print("Nawożenie jest zbędne: ")
     else:
         print("Zasobność jest zbyt wysoka - konieczne jest dodanie torfu niskiego lub kompostu: ")
+
 def calculate_azot():
     result_azot = int(input("Podaj wynik badania azotu: "))
     azot = 90.0
@@ -29,31 +31,35 @@ def calculate_azot():
         print("Konieczne jest dodatkowe nawożenie azotowe w ilości: ", doseN, "g/m2")
     else:
         print("Nawożenie nie jest konieczne: ")
+
 def show_results_table():
+    print(table)
     #index_recomendation = 1
-    for index, doses in enumerate(table):
-        print(index + 1, doses)
+    for index, doses in enumerate(table, start=1):
+        print(f'[{index}] {doses}')
         #print(fosfor_dose + Nitrogen_dose + "["+ str(index_recomendation) + "]")
         #index_recomendation += 1
+
 def delete_recomendation():
-    index_recomendation = 0
-    index_recomendation = int(input("Wpisz indeks zalecenia do usunięcia: "))
-    if index_recomendation < 1 or index_recomendation > len(table) -1:
+    index_to_delete = int(input("Wpisz indeks zalecenia do usunięcia: ")) - 1
+    
+    if index_to_delete < 0 or index_to_delete > len(table) -1:
         print("nie ma takiego zalecenia: ")
     else:
-        table.pop(index_recomendation)
+        table.pop(index_to_delete)
         print("zalecenie usunięto: ")
+        
 def save_recomendation_to_file():
+    with open("table.txt", "w") as file:
+        for f, a in table:
+            file.write(f"{f}{a}\n")
 
-    file = open("table.txt", "w")
-    for f, a in table:
-        file.write(f + a + "\n")
-    file.close()
 def load_recomendation_from_file():
     file = open("table.txt")
     for line in file.readlines():
         print(line)
     file.close()
+
 while user != 7:
     print("1. Policz potrzeby nawozowe dla fosforu")
     print("2. Policz potrzeby nawozowe dla azotu: ")
